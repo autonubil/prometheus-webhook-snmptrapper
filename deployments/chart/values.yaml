@@ -1,6 +1,6 @@
 image:
-  repository: quay.io/prometheus-webhook-snmptrapper:0.1.0
-  tag: latest
+  repository: quay.io/prometheus-webhook-snmptrapper
+  tag: 0.1.0
   pullPolicy: Always
   pullSecrets:
   - name: gitlab-registry

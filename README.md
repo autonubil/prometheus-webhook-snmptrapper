@@ -25,6 +25,8 @@ Both of these traps contain the following variables:
 - ***prometheusTrapperNotificationService***: A name for the service affected
 - ***prometheusTrapperNotificationLocation***: The physical location where the alert was generated
 - ***prometheusTrapperNotificationSeverity***: The severity of the alert
+- ***prometheusTrapperNotificationInfo***: Text description of the alert
+- ***prometheusTrapperNotificationSummary***: Text description of the alert
 - ***prometheusTrapperNotificationDescription***: Text description of the alert
 - ***prometheusTrapperNotificationTimestamp***: When the alert was first generated
 

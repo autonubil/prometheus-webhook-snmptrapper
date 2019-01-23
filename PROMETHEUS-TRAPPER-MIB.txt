@@ -13,7 +13,7 @@ IMPORTS
 ;
 
 prometheusTrapper MODULE-IDENTITY
-    LAST-UPDATED "201610310000Z"
+    LAST-UPDATED "201901230000Z"
     ORGANIZATION "href.net"
     CONTACT-INFO "https://gitlab.autonubil.net/kubernetes/prometheus-webhook-snmptrapper"
     DESCRIPTION  "Example MIB objects for agent module example implementations"
