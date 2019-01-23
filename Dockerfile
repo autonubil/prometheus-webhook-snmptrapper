@@ -12,9 +12,9 @@ ENV WEBHOOK_ADDRESS="0.0.0.0:9099"
 
 EXPOSE 9099
 
-COPY prometheus_webhook_snmptrapper.linux-amd64 /usr/local/bin/prometheus_webhook_snmptrapper
+COPY prometheus-webhook-snmptrapper /usr/local/bin/prometheus-webhook-snmptrapper
 COPY sample-alert.json /
 
-CMD exec /usr/local/bin/prometheus_webhook_snmptrapper -snmpcommunity=$SNMP_COMMUNITY -snmpretries=$SNMP_RETRIES -snmptrapaddress=$SNMP_TRAP_ADDRESS -webhookaddress=$WEBHOOK_ADDRESS
+CMD exec /usr/local/bin/prometheus-webhook-snmptrapper -snmpcommunity=$SNMP_COMMUNITY -snmpretries=$SNMP_RETRIES -snmptrapaddress=$SNMP_TRAP_ADDRESS -webhookaddress=$WEBHOOK_ADDRESS
 
 # docker build -t "prawn/prometheus-webhook-snmptrapper" .

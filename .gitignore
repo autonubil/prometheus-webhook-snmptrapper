@@ -1,3 +1,6 @@
-prometheus_webhook_snmptrapper
-prometheus_webhook_snmptrapper.linux-amd64
-trapdebug/trapdebug
+*.exe
+debug
+prometheus-webhook-snmptrapper
+.vscode
+.vscode/launch.json
+test.sh

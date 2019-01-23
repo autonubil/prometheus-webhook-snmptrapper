@@ -1,7 +1,7 @@
 package types
 
 import (
-	snmpgo "github.com/k-sone/snmpgo"
+	snmpgo "github.com/autonubil/snmpgo"
 )
 
 type TrapOIDs struct {

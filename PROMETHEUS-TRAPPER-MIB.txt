@@ -2,11 +2,11 @@ PROMETHEUS-TRAPPER-MIB DEFINITIONS ::= BEGIN
 
 --
 -- Notifications for the Prometheus SNMP Trapper
--- https://github.com/chrusty/prometheus_webhook_snmptrapper
+-- https://gitlab.autonubil.net/kubernetes/prometheus-webhook-snmptrapper
 --
 
 IMPORTS
-    MODULE-IDENTITY, OBJECT-TYPE, TimeTicks, experimental, NOTIFICATION-TYPE  
+    MODULE-IDENTITY, OBJECT-TYPE, TimeTicks, experimental, NOTIFICATION-TYPE
         FROM SNMPv2-SMI
     DisplayString, TimeStamp
         FROM SNMPv2-TC
@@ -14,12 +14,12 @@ IMPORTS
 
 prometheusTrapper MODULE-IDENTITY
     LAST-UPDATED "201610310000Z"
-    ORGANIZATION "Chrusty"
-    CONTACT-INFO "https://github.com/chrusty/prometheus_webhook_snmptrapper"
+    ORGANIZATION "href.net"
+    CONTACT-INFO "https://gitlab.autonubil.net/kubernetes/prometheus-webhook-snmptrapper"
     DESCRIPTION  "Example MIB objects for agent module example implementations"
     REVISION     "201610310000Z"
     DESCRIPTION  "Created MIB"
-    ::= { experimental 1977 }
+    ::= { 1.3.6.1.4.1.39366.9093 }
 
 --
 -- Top level structure

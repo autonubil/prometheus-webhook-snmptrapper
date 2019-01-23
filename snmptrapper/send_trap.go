@@ -3,17 +3,17 @@ package snmptrapper
 import (
 	"time"
 
-	types "github.com/chrusty/prometheus_webhook_snmptrapper/types"
+	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
 
 	logrus "github.com/Sirupsen/logrus"
-	snmpgo "github.com/k-sone/snmpgo"
+	snmpgo "github.com/autonubil/snmpgo"
 )
 
 func sendTrap(alert types.Alert) {
 
 	// Prepare an SNMP handler:
 	snmp, err := snmpgo.NewSNMP(snmpgo.SNMPArguments{
-		Version:   snmpgo.V2c,
+		Version:   myConfig.SNMPVersion,
 		Address:   myConfig.SNMPTrapAddress,
 		Retries:   myConfig.SNMPRetries,
 		Community: myConfig.SNMPCommunity,
@@ -53,7 +53,12 @@ func sendTrap(alert types.Alert) {
 	defer snmp.Close()
 
 	// Send the trap:
-	if err = snmp.V2Trap(varBinds); err != nil {
+	if myConfig.SNMPVersion == snmpgo.V1 {
+		err = snmp.V1Trap(varBinds)
+	} else {
+		err = snmp.V2Trap(varBinds)
+	}
+	if err != nil {
 		log.WithFields(logrus.Fields{"error": err}).Error("Failed to send SNMP trap")
 		return
 	} else {
