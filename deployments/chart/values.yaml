@@ -1,0 +1,41 @@
+image:
+  repository: quay.io/prometheus-webhook-snmptrapper:0.1.0
+  tag: latest
+  pullPolicy: Always
+  pullSecrets:
+  - name: gitlab-registry
+  - name: autonubil-gitlab-registry
+
+nodeSelector:
+#  zone: "data"
+tolerations:
+#  - key: "zone"
+#    operator: "Equal"
+#    value: "data"
+#    effect: "NoSchedule"
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+#  requests:
+#    cpu: 500m
+#    memory: 1200Mi
+#  limits:
+#    cpu: 1000m
+#    memory: 2000Mi
+
+config:
+  webhookPort: 9098
+  snmp:
+    trapAddress:
+    community: public
+    retries: 3
+    version: v1
+  loglevel: 3
+  prometheus:
+    enabled: true
+
+sentry:
+  enabled: false
+  dsn:

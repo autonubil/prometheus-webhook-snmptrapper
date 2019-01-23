@@ -1,0 +1,35 @@
+image: gitlab.autonubil.net:5000/shared/magarac:latest
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - gocache
+    - .sonar/cache
+    - bin/
+
+stages:
+  - validate
+  - build
+
+variables:
+  REPO: github.com/autonubil/snmpgo
+
+sonar:
+  stage: validate
+  script:
+    - mkdir -p /root/.sonar/cache
+    - sonar-scanner -Dsonar.projectKey=$CI_PROJECT_NAME -Dsonar.sources=. -Dsonar.login=$SONAR_TOKEN -Duser.home=/root/
+    - ls -al /root/.sonar/
+
+build:
+  stage: build
+  script: |
+    export ROOT=$(pwd)
+    mkdir -p $GOPATH/src/$REPO
+    mkdir -p app/
+    mkdir -p /root/gocache
+    ls -alh
+    mv * $GOPATH/src/$REPO/
+    cd $GOPATH/src/$REPO/
+    GOCACHE=/root/gocache CGO_ENABLED=0 GOOS=linux go build  -a -installsuffix cgo  -v -o $ROOT/bin/snmpgo ./
+    ls -alh $ROOT/

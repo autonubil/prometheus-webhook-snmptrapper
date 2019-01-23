@@ -1,6 +1,7 @@
 package snmptrapper
 
 import (
+	"fmt"
 	"os"
 	"os/signal"
 	"sync"
@@ -10,11 +11,11 @@ import (
 
 	logrus "github.com/Sirupsen/logrus"
 	snmpgo "github.com/autonubil/snmpgo"
+	raven "github.com/getsentry/raven-go"
 )
 
 var (
-	log      = logrus.WithFields(logrus.Fields{"logger": "SNMP-trapper"})
-	myConfig config.Config
+	myConfig *config.Config
 	trapOIDs types.TrapOIDs
 )
 
@@ -32,11 +33,13 @@ func init() {
 	trapOIDs.Description, _ = snmpgo.NewOid("1.3.6.1.4.1.39366.9093.1.5")
 	trapOIDs.JobName, _ = snmpgo.NewOid("1.3.6.1.4.1.39366.9093.1.6")
 	trapOIDs.TimeStamp, _ = snmpgo.NewOid("1.3.6.1.4.1.39366.9093.1.7")
+	trapOIDs.Info, _ = snmpgo.NewOid("1.3.6.1.4.1.39366.9093.1.8")
+	trapOIDs.Summary, _ = snmpgo.NewOid("1.3.6.1.4.1.39366.9093.1.9")
 }
 
-func Run(myConfigFromMain config.Config, alertsChannel chan types.Alert, waitGroup *sync.WaitGroup) {
+func Run(myConfigFromMain *config.Config, alertsChannel chan types.Alert, waitGroup *sync.WaitGroup) {
 
-	log.WithFields(logrus.Fields{"address": myConfigFromMain.SNMPTrapAddress}).Info("Starting the SNMP trapper")
+	logrus.WithFields(logrus.Fields{"address": myConfigFromMain.SNMPTrapAddress}).Info("Starting the SNMP trapper")
 
 	// Populate the config:
 	myConfig = myConfigFromMain
@@ -51,9 +54,17 @@ func Run(myConfigFromMain config.Config, alertsChannel chan types.Alert, waitGro
 			select {
 
 			case alert := <-alertsChannel:
-
+				raven.Capture(&raven.Packet{Level: raven.DEBUG, Message: "New Alert"}, map[string]string{
+					"status":       fmt.Sprintf("%v", alert.Status),
+					"startsAt":     fmt.Sprintf("%v", alert.StartsAt),
+					"endsAt":       fmt.Sprintf("%v", alert.EndsAt),
+					"adress":       fmt.Sprintf("%v", alert.Address),
+					"annotations":  fmt.Sprintf("%v", alert.Annotations),
+					"generatorURL": fmt.Sprintf("%v", alert.GeneratorURL),
+					"Labels":       fmt.Sprintf("%v", alert.Labels),
+				})
 				// Send a trap based on this alert:
-				log.WithFields(logrus.Fields{"status": alert.Status}).Debug("Received an alert")
+				logrus.WithFields(logrus.Fields{"status": alert.Status}).Debug("Received an alert")
 				sendTrap(alert)
 			}
 		}
@@ -63,7 +74,7 @@ func Run(myConfigFromMain config.Config, alertsChannel chan types.Alert, waitGro
 	for {
 		select {
 		case <-signals:
-			log.Warn("Shutting down the SNMP trapper")
+			logrus.Warn("Shutting down the SNMP trapper")
 
 			// Tell main() that we're done:
 			waitGroup.Done()

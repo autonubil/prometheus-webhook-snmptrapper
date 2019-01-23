@@ -8,6 +8,7 @@ import (
 	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
 
 	logrus "github.com/Sirupsen/logrus"
+	raven "github.com/getsentry/raven-go"
 	template "github.com/prometheus/alertmanager/template"
 )
 
@@ -23,6 +24,7 @@ func (webhookHandler *WebhookHandler) ServeHTTP(responseWriter http.ResponseWrit
 	payload, err := ioutil.ReadAll(request.Body)
 	defer request.Body.Close()
 	if err != nil {
+		raven.CaptureError(err, map[string]string{"payload": "payload"})
 		log.WithFields(logrus.Fields{"error": err}).Error("Failed to read the request body")
 		http.Error(responseWriter, "Failed to read the request body", http.StatusBadRequest)
 		return
@@ -31,6 +33,7 @@ func (webhookHandler *WebhookHandler) ServeHTTP(responseWriter http.ResponseWrit
 	// Validate the payload:
 	err, alerts := validatePayload(payload)
 	if err != nil {
+		raven.CaptureError(err, map[string]string{"payload": "payload"})
 		http.Error(responseWriter, "Failed to unmarshal the request-body into an alert", http.StatusBadRequest)
 		return
 	}
@@ -41,7 +44,6 @@ func (webhookHandler *WebhookHandler) ServeHTTP(responseWriter http.ResponseWrit
 
 		// Enrich the request with the remote-address:
 		alert.Address = request.RemoteAddr
-
 		// Put the alert onto the alerts-channel:
 		webhookHandler.AlertsChannel <- alert
 	}

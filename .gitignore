@@ -1,6 +1,7 @@
 *.exe
 debug
 prometheus-webhook-snmptrapper
+.vendor-new
 .vscode
 .vscode/launch.json
 test.sh

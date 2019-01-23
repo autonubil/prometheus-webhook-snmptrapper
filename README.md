@@ -34,6 +34,8 @@ AlertManager needs to be configured to fire webhooks as notifications, with a pr
 
 ### Annotations:
 - ***description***: A string describing the alert (_prometheusTrapperNotificationDescription_)
+- ***info***: A string describing the alert (_prometheusTrapperNotificationInfo_)
+- ***summary***: A string describing the alert (_prometheusTrapperNotificationSummary_)
 
 ### Labels:
 - ***instance***: A string containing a unique host-identifier / hostname / instance-id / IP-address etc (_prometheusTrapperNotificationInstance_)
@@ -43,11 +45,11 @@ AlertManager needs to be configured to fire webhooks as notifications, with a pr
 
 Command-line flags
 ------------------
-- **-snmpcommunity**: The SNMP community string (_default_ = `public`)
-- **-snmpversion**: SNMP protocol version to use (_default_ = `1`)
-- **-snmpretries**: The number of times to retry sending traps (_default_ = `1`)
-- **-snmptrapaddress**: The address to send traps to (_default_ = `127.0.0.1:162`)
-- **-webhookaddress**: The address to listen for incoming webhooks on (_default_ = `0.0.0.0:9099`)
+- **--snmpcommunity**: The SNMP community string (_default_ = `public`)
+- **--snmpversion**: SNMP protocol version to use (_default_ = `1`)
+- **--snmpretries**: The number of times to retry sending traps (_default_ = `1`)
+- **--snmptrapaddress**: The address to send traps to (_default_ = `127.0.0.1:162`)
+- **--webhookaddress**: The address to listen for incoming webhooks on (_default_ = `0.0.0.0:9099`)
 
 
 Testing

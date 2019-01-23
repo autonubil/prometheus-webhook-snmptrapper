@@ -15,7 +15,7 @@ import (
 
 var (
 	log      = logrus.WithFields(logrus.Fields{"logger": "Webhook-server"})
-	myConfig config.Config
+	myConfig *config.Config
 )
 
 func init() {
@@ -23,7 +23,7 @@ func init() {
 	logrus.SetLevel(logrus.DebugLevel)
 }
 
-func Run(myConfigFromMain config.Config, alertsChannel chan types.Alert, waitGroup *sync.WaitGroup) {
+func Run(myConfigFromMain *config.Config, alertsChannel chan types.Alert, waitGroup *sync.WaitGroup) {
 
 	log.WithFields(logrus.Fields{"address": myConfigFromMain.WebhookAddress}).Info("Starting the Webhook server")
 

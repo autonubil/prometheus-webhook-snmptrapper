@@ -1,0 +1,74 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+  labels:
+    app: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+      release: "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        app: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+      annotations:
+{{- if .Values.config.prometheus.enabled }}
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9350'
+{{- end }}
+    spec:
+      containers:
+      - name: broker
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: "SNMP_COMMUNITY"
+          value: {{ .Values.config.snmp.community | quote}}
+        - name: "SNMP_RETRIES"
+          value: {{ .Values.config.snmp.retries | quote}}
+        - name: "SNMP_TRAP_ADDRESS"
+          value: {{ .Values.config.snmp.trapAddress | quote}}
+        - name: "WEBHOOK_ADDRESS"
+          value: "0.0.0.0:{{ .Values.config.webhookPort }}"
+        - name: "LOGLEVEL"
+          value: {{ .Values.config.loglevel | quote}}
+        - name: "PROMETHEUS"
+{{- if .Values.config.prometheus }}
+          value: "true"
+{{- else }}
+           value: "false"
+{{- end }}
+{{- if .Values.sentry.enabled}}
+        - name: "SENTRY_DSN"
+          value: {{ .Values.sentry.dsn | quote}}
+{{- end }}
+        ports:
+          - containerPort: {{ .Values.config.webhookPort }}
+{{- if .Values.config.prometheus.enabled }}
+          - containerPort: 9350
+{{- end }}
+
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+  {{- if .Values.nodeSelector }}
+        nodeSelector:
+  {{ toYaml .Values.nodeSelector | indent 8 }}
+  {{- end }}
+  {{- if .Values.tolerations }}
+        tolerations:
+  {{ toYaml .Values.tolerations | indent 8 }}
+  {{- end }}
+
+{{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.image.pullSecrets | indent 8 }}
+{{- end }}

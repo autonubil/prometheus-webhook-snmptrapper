@@ -1,0 +1,19 @@
+{{- if .Values.config.prometheus.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+  labels:
+    app: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  selector:
+    app: {{ template "prometheus-webhook-snmptrapper.fullname" . }}
+    release: "{{ .Release.Name }}"
+  ports:
+  - protocol: TCP
+    port: {{ .Values.config.webhookPort }}
+    targetPort: {{ .Values.config.webhookPort }}
+{{- end }}

@@ -1,52 +1,53 @@
 package main
 
 import (
-	flag "flag"
-	sync "sync"
+	"fmt"
+	"os"
 
-	config "github.com/autonubil/prometheus-webhook-snmptrapper/config"
-	snmptrapper "github.com/autonubil/prometheus-webhook-snmptrapper/snmptrapper"
-	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
-	webhook "github.com/autonubil/prometheus-webhook-snmptrapper/webhook"
+	raven "github.com/getsentry/raven-go"
+
+	"github.com/autonubil/prometheus-webhook-snmptrapper/cmd"
 
 	logrus "github.com/Sirupsen/logrus"
 )
 
+var Version string
+var Commit string
+var BuildDate string
+
 var (
-	conf      config.Config
-	log       = logrus.WithFields(logrus.Fields{"logger": "main"})
-	waitGroup = &sync.WaitGroup{}
+	log = logrus.WithFields(logrus.Fields{"logger": "main"})
 )
 
-func init() {
-	// Process the command-line parameters:
-	flag.StringVar(&conf.SNMPTrapAddress, "snmptrapaddress", "127.0.0.1:162", "Address to send SNMP traps to")
-	flag.StringVar(&conf.SNMPCommunity, "snmpcommunity", "public", "SNMP community string")
-	flag.UintVar(&conf.SNMPRetries, "snmpretries", 1, "Number of times to retry sending SNMP traps")
-	flag.Var(&config.SNMPVersionValue{SNMPVersion: &conf.SNMPVersion}, "snmpversion", "SNMP protocol version")
-	flag.StringVar(&conf.WebhookAddress, "webhookaddress", "0.0.0.0:9099", "Address and port to listen for webhooks on")
-	flag.Parse()
-
+func main() {
 	// Set the log-level:
-	logrus.SetLevel(logrus.DebugLevel)
+	logrus.SetLevel(logrus.InfoLevel)
+
+	sentryDsn := os.Getenv("SENTRY_DSN")
+	if len(sentryDsn) > 0 {
+		raven.SetDSN(sentryDsn)
+		raven.SetRelease(fmt.Sprintf("%s [%s@%s]", Version, Commit, BuildDate))
+		// Make sure that the call to doStuff doesn't leak a panic
+		raven.CapturePanic(run, nil)
+	} else {
+		run()
+	}
 }
 
-func main() {
+func run() {
+	// Create & execute new command
+	cmd, err := cmd.NewSnmpTrapper()
+	if err != nil {
+		os.Exit(1)
+	}
 
-	// Make sure we wait for everything to complete before bailing out:
-	defer waitGroup.Wait()
+	log.Infof("Starting Prometheus SNMP Trapper [Version %s, Commit: %s, BuildDate: %s]", Version, Commit, BuildDate)
+	raven.Capture(&raven.Packet{Level: raven.INFO, Message: "Starting Prometheus SNMP Trapper"}, map[string]string{"version": Version, "commit": Commit, "buildDate": BuildDate})
 
-	// Prepare a channel of events (to feed the digester):
-	log.Info("Preparing the alerts channel")
-	alertsChannel := make(chan types.Alert)
-
-	// Prepare to have background GoRoutines running:
-	waitGroup.Add(1)
-
-	// Start webhook server:
-	go webhook.Run(conf, alertsChannel, waitGroup)
-
-	// Start the SNMP trapper:
-	go snmptrapper.Run(conf, alertsChannel, waitGroup)
+	err = cmd.Execute()
+	if err != nil {
+		os.Exit(1)
+	}
+	os.Exit(0)
 
 }

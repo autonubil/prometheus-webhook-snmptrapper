@@ -27,4 +27,6 @@ const (
 	oidPrometheusTrapperNotificationDescription = "1.3.6.1.4.1.39366.9093.1.5" // Variable: description
 	oidPrometheusTrapperNotificationJob         = "1.3.6.1.4.1.39366.9093.1.6" // Variable: job
 	oidPrometheusTrapperNotificationTimestamp   = "1.3.6.1.4.1.39366.9093.1.7" // Variable: timestamp
+	oidPrometheusTrapperNotificationSummary     = "1.3.6.1.4.1.39366.9093.1.8" // Variable: description
+	oidPrometheusTrapperNotificationInfo        = "1.3.6.1.4.1.39366.9093.1.9" // Variable: description
 )

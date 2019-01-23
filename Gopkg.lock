@@ -2,142 +2,178 @@
 
 
 [[projects]]
-  digest = "1:87c2e02fb01c27060ccc5ba7c5a407cc91147726f8f40b70cceeedbc52b1f3a8"
   name = "github.com/Sirupsen/logrus"
   packages = ["."]
-  pruneopts = "UT"
   revision = "e1e72e9de974bd926e5c56f83753fba2df402ce5"
   version = "v1.3.0"
 
 [[projects]]
+  name = "github.com/autonubil/snmpgo"
+  packages = ["."]
+  revision = "1b938e94a57aee2c6b23a8ad734fc9a4251ae0a3"
+  version = "v3.3.0"
+
+[[projects]]
   branch = "master"
-  digest = "1:3bcb4cb52533b0a256f4e79e4bdf2440818e9422bd1e4e69ea3ff8d6a65f8113"
+  name = "github.com/beorn7/perks"
+  packages = ["quantile"]
+  revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
+
+[[projects]]
+  branch = "master"
   name = "github.com/cdevr/WapSNMP"
   packages = ["."]
-  pruneopts = "UT"
   revision = "94cbc6d187508e069da813a406056e5f92c65bc6"
 
 [[projects]]
-  branch = "master"
-  digest = "1:130af1bbaa4ce0179091151044f5ceac2b587df3edc2371bf3e7b89c07317338"
-  name = "github.com/autonubil/prometheus-webhook-snmptrapper"
-  packages = [
-    "config",
-    "snmptrapper",
-    "types",
-    "webhook",
-  ]
-  pruneopts = "UT"
-  revision = "70512ba5b6c7ac00e21c010618d0074a3d99d091"
+  name = "github.com/certifi/gocertifi"
+  packages = ["."]
+  revision = "deb3ae2ef2610fde3330947281941c562861188b"
+  version = "2018.01.18"
 
 [[projects]]
-  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
-  pruneopts = "UT"
   revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
   version = "v1.1.1"
 
 [[projects]]
   branch = "master"
-  digest = "1:6fe16708356f94f1d18300c9b04630cd47f8ad542dd33e73f321db397f482dff"
   name = "github.com/ebookbug/gosnmptrap"
   packages = ["."]
-  pruneopts = "UT"
   revision = "01a706c0f994bd53cd46c0f93046297e9c0637f9"
 
 [[projects]]
   branch = "master"
-  digest = "1:28f8bdb5bfb279f6893037a3bc22f7a2a1f4cbc6ccba0b2b12918c3f2a4d09d8"
   name = "github.com/geoffgarside/ber"
   packages = ["."]
-  pruneopts = "UT"
   revision = "27a1aff36ce64dbe5d93c08cc5f161983134ddc5"
 
 [[projects]]
-  digest = "1:52413a50ae4941a1ff8ec507ee39a666dd38538883c72f5f662f3629ce00bc9f"
-  name = "github.com/k-sone/snmpgo"
+  name = "github.com/getsentry/raven-go"
   packages = ["."]
-  pruneopts = "UT"
-  revision = "de09377ff34857b08afdc16ea8c7c2929eb1fc6e"
-  version = "v3.2.0"
+  revision = "f04e7487e9a6b9d9837d52743fb5f40576c56411"
+  version = "v0.2.0"
 
 [[projects]]
-  digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  revision = "aa810b61a9c79d51363740d207bb46cf8e620ed5"
+  version = "v1.2.0"
+
+[[projects]]
+  name = "github.com/inconshreveable/mousetrap"
+  packages = ["."]
+  revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+  version = "v1.0"
+
+[[projects]]
   name = "github.com/konsorten/go-windows-terminal-sequences"
   packages = ["."]
-  pruneopts = "UT"
   revision = "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242"
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
+  name = "github.com/matttproud/golang_protobuf_extensions"
+  packages = ["pbutil"]
+  revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
+  version = "v1.0.1"
+
+[[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
+  version = "v0.8.1"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
-  pruneopts = "UT"
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:5f685b4541d7f8d9dce742683f4feec424dbec7deb1d59bd82172fc3e9d0d86b"
   name = "github.com/prometheus/alertmanager"
   packages = [
     "template",
     "template/internal/deftmpl",
-    "types",
+    "types"
   ]
-  pruneopts = "UT"
   revision = "d4a7697cc90f8bce62efe7c44b63b542578ec0a1"
   version = "v0.15.3"
 
 [[projects]]
+  name = "github.com/prometheus/client_golang"
+  packages = [
+    "prometheus",
+    "prometheus/internal",
+    "prometheus/promhttp"
+  ]
+  revision = "505eaef017263e299324067d40ca2c48f6a2cf50"
+  version = "v0.9.2"
+
+[[projects]]
   branch = "master"
-  digest = "1:eae0ba7dae229f7daf584f2cd4c774fecefdbe0440c79e3de9cd67048055d51f"
+  name = "github.com/prometheus/client_model"
+  packages = ["go"]
+  revision = "56726106282f1985ea77d5305743db7231b0c0a8"
+
+[[projects]]
+  branch = "master"
   name = "github.com/prometheus/common"
-  packages = ["model"]
-  pruneopts = "UT"
+  packages = [
+    "expfmt",
+    "internal/bitbucket.org/ww/goautoneg",
+    "model"
+  ]
   revision = "2998b132700a7d019ff618c06a234b47c1f3f681"
 
 [[projects]]
-  digest = "1:972c2427413d41a1e06ca4897e8528e5a1622894050e2f527b38ddf0f343f759"
+  branch = "master"
+  name = "github.com/prometheus/procfs"
+  packages = [
+    ".",
+    "internal/util",
+    "nfs",
+    "xfs"
+  ]
+  revision = "bf6a532e95b1f7a62adf0ab5050a5bb2237ad2f4"
+
+[[projects]]
+  name = "github.com/spf13/cobra"
+  packages = ["."]
+  revision = "ef82de70bb3f60c65fb8eebacbb2d122ef517385"
+  version = "v0.0.3"
+
+[[projects]]
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  revision = "298182f68c66c05229eb03ac171abe6e309ee79a"
+  version = "v1.0.3"
+
+[[projects]]
   name = "github.com/stretchr/testify"
   packages = ["assert"]
-  pruneopts = "UT"
   revision = "ffdc059bfe9ce6a4e144ba849dbedead332c6053"
   version = "v1.3.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:38f553aff0273ad6f367cb0a0f8b6eecbaef8dc6cb8b50e57b6a81c1d5b1e332"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  pruneopts = "UT"
   revision = "ff983b9c42bc9fbf91556e191cc8efb585c16908"
 
 [[projects]]
   branch = "master"
-  digest = "1:72f402ba458cb14ed7964c8b9a38d992f27834b3cf3479f3b08ea9e5334811b3"
   name = "golang.org/x/sys"
   packages = [
     "unix",
-    "windows",
+    "windows"
   ]
-  pruneopts = "UT"
   revision = "770c60269bf0ef965e9e7ac8bedcb6bca2a1cefd"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = [
-    "github.com/Sirupsen/logrus",
-    "github.com/autonubil/prometheus-webhook-snmptrapper/config",
-    "github.com/autonubil/prometheus-webhook-snmptrapper/snmptrapper",
-    "github.com/autonubil/prometheus-webhook-snmptrapper/types",
-    "github.com/autonubil/prometheus-webhook-snmptrapper/webhook",
-    "github.com/ebookbug/gosnmptrap",
-    "github.com/k-sone/snmpgo",
-    "github.com/prometheus/alertmanager/template",
-    "github.com/stretchr/testify/assert",
-  ]
+  inputs-digest = "e1ad700db8d1bd5123f711072cd13730428fa5244d746193d7c40e0c6a49fae2"
   solver-name = "gps-cdcl"
   solver-version = 1

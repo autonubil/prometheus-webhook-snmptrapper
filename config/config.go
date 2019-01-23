@@ -11,6 +11,10 @@ type SNMPVersionValue struct {
 	SNMPVersion *snmpgo.SNMPVersion
 }
 
+func (v SNMPVersionValue) Type() string {
+	return "SNMPVersionValue"
+}
+
 func (v SNMPVersionValue) String() string {
 	if v.SNMPVersion != nil {
 		switch *v.SNMPVersion {
@@ -57,9 +61,11 @@ func (v SNMPVersionValue) Set(s string) error {
 }
 
 type Config struct {
-	SNMPTrapAddress string
-	SNMPCommunity   string
-	SNMPRetries     uint
-	WebhookAddress  string
-	SNMPVersion     snmpgo.SNMPVersion
+	SNMPTrapAddress   string
+	SNMPCommunity     string
+	SNMPRetries       uint
+	WebhookAddress    string
+	SNMPVersion       snmpgo.SNMPVersion
+	PrometheusEnabled bool
+	LogLevel          uint
 }

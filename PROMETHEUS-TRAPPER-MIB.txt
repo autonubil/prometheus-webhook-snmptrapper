@@ -88,6 +88,23 @@ prometheusTrapperNotificationTimestamp OBJECT-TYPE
         "The time the notification-event occurred."
 ::= { prometheusTrapperNotificationObjects 7 }
 
+prometheusTrapperNotificationSummary OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Summary field."
+::= { prometheusTrapperNotificationObjects 8 }
+
+prometheusTrapperNotificationInfo OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Info field."
+::= { prometheusTrapperNotificationObjects 9 }
+
+
 prometheusTrapperFiringNotification NOTIFICATION-TYPE
     OBJECTS     {
                     prometheusTrapperNotificationInstance,
@@ -95,7 +112,9 @@ prometheusTrapperFiringNotification NOTIFICATION-TYPE
                     prometheusTrapperNotificationLocation,
                     prometheusTrapperNotificationSeverity,
                     prometheusTrapperNotificationDescription,
-                    prometheusTrapperNotificationTimestamp
+                    prometheusTrapperNotificationTimestamp,
+                    prometheusTrapperNotificationSummary,
+                    prometheusTrapperNotificationInfo
                 }
     STATUS      current
     DESCRIPTION
@@ -109,7 +128,9 @@ prometheusTrapperRecoveryNotification NOTIFICATION-TYPE
                     prometheusTrapperNotificationLocation,
                     prometheusTrapperNotificationSeverity,
                     prometheusTrapperNotificationDescription,
-                    prometheusTrapperNotificationTimestamp
+                    prometheusTrapperNotificationTimestamp,
+                    prometheusTrapperNotificationSummary,
+                    prometheusTrapperNotificationInfo
                 }
     STATUS      current
     DESCRIPTION
