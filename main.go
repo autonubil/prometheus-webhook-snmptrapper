@@ -6,7 +6,7 @@ import (
 
 	raven "github.com/getsentry/raven-go"
 
-	"github.com/autonubil/prometheus-webhook-snmptrapper/cmd"
+	"github.com/autonubil/prometheus-webhook-snmptrapper/pkg/cmd"
 
 	logrus "github.com/Sirupsen/logrus"
 )

@@ -7,8 +7,8 @@ import (
 
 	"net/http"
 
-	config "github.com/autonubil/prometheus-webhook-snmptrapper/config"
-	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
+	config "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/config"
+	types "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/types"
 
 	logrus "github.com/Sirupsen/logrus"
 )

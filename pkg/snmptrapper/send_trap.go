@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
+	types "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/types"
 
 	logrus "github.com/Sirupsen/logrus"
 	snmpgo "github.com/autonubil/snmpgo"

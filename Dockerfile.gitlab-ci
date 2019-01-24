@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/base@sha256:a26dde6863dd8b0417d7060c990abe85c1d2481541568445e82b46de9452cf0c
+FROM alpine:3.8
 LABEL maintainer="carsten.zeumer@autonubil.de"
 
 WORKDIR /
@@ -15,6 +15,5 @@ EXPOSE 9099
 EXPOSE 9350
 
 COPY prometheus-webhook-snmptrapper /prometheus-webhook-snmptrapper
-COPY sample-alert.json /
 
-CMD exec /prometheus-webhook-snmptrapper --loglevel=$LOGLEVEL --prometheus=$PROMETHEUS --snmpversion=$SNMP_VERSION--snmpcommunity=$SNMP_COMMUNITY --snmpretries=$SNMP_RETRIES --snmptrapaddress=$SNMP_TRAP_ADDRESS --webhookaddress=$WEBHOOK_ADDRESS
+CMD ["/bin/sh", "-c", "/prometheus-webhook-snmptrapper --loglevel=$LOGLEVEL --prometheus=$PROMETHEUS --snmpversion=$SNMP_VERSION --snmpcommunity=$SNMP_COMMUNITY --snmpretries=$SNMP_RETRIES --snmptrapaddress=$SNMP_TRAP_ADDRESS --webhookaddress=$WEBHOOK_ADDRESS"]

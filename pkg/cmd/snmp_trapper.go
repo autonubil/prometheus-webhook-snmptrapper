@@ -28,10 +28,10 @@ import (
 	raven "github.com/getsentry/raven-go"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	config "github.com/autonubil/prometheus-webhook-snmptrapper/config"
-	snmptrapper "github.com/autonubil/prometheus-webhook-snmptrapper/snmptrapper"
-	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
-	webhook "github.com/autonubil/prometheus-webhook-snmptrapper/webhook"
+	config "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/config"
+	snmptrapper "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/snmptrapper"
+	types "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/types"
+	webhook "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/webhook"
 
 	logrus "github.com/Sirupsen/logrus"
 

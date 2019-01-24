@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	types "github.com/autonubil/prometheus-webhook-snmptrapper/types"
+	types "github.com/autonubil/prometheus-webhook-snmptrapper/pkg/types"
 
 	logrus "github.com/Sirupsen/logrus"
 	raven "github.com/getsentry/raven-go"
